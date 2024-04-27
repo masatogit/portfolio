@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>交通費入力</title>
+	<link rel="stylesheet" href="/clock.css" type="text/css">
+
+</head>
+
+<body>
+	<h1 th:text="${title}">交通費入力</h1>
+	<p>前日退勤分〜当日出勤分の交通費を入力してください</p>
+	
+	<form id="transportationExpenses" action="complete" th:action="@{/complete}" method="post" th:object="${form}">
+		<label for="commuting_allowance">交通費：</label>
+    	<input type="text" name="commuting_allowance" step="1" min="0" id="commuting_allowance" th:field="*{commuting_allowance}" placeholder="交通費を入力してください" required>
+    	<div th:if="${#fields.hasErrors('commuting_allowance')}" th:errors="*{commuting_allowance}"></div>
+    	<button type="submit">送信</button>
+	</form>
+</body>
+
+</html>
+<!-- required-->

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>勤怠管理</title>
+	<link rel="stylesheet" href="/attendance.css" type="text/css">
+
+</head>
+
+<body>
+
+	<!--現在時刻表示-->
+	<h1 th:text="${title}">title</h1>
+	<h2 th:text="${complete}"></h2>
+	<P id="RealtimeClockArea"></P>
+
+
+	<!--出勤処理-->
+	<form id="clockInForm" action="#" th:action="@{/clockIn}" method="post">
+		<input type="hidden" id="clockTime" name="clockTime">
+		<input type="submit" value="出勤">
+	</form>
+
+
+	<!--退勤処理-->
+	<form id="clockOutForm" action="#" th:action="@{/clockOut}" method="post">
+		<input type="hidden" id="clockTime" name="clockTime">
+		<input type="submit" value="退勤">
+	</form>
+	
+	
+	<!--勤怠状況一覧	<button type="submit" name="join"></button>-->
+	<form th:action="@{/join}" method="post" id="join">
+		<P>↓↓勤怠状況はこちら</P>
+		<input type="submit" value="退勤一覧">
+	</form>	
+	
+
+	<!--イベント読み込み-->
+	<script src="attendance.js"></script>
+</body>
+
+</html>
