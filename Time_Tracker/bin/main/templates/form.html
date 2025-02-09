@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link th:href="@{/css/form.css}" rel="stylesheet" type="text/css">
+	<title th:text=${title}>勤怠報告</title>
+</head>
+
+<body>
+	<div th:object="${loginForm}">
+			<p>ログインID: <span th:text="${id}"></span></p>
+			<p>パスワード: <span th:text="${pass}"></span></p>
+		</div>
+	<div class="form-container">
+		<form name="loginCheck" th:action="@{/login}" th:object="${loginForm}" method="get">
+			<button type="submit">ログアウト</button>
+		</form>
+
+		<form th:action="@{/success}" method="get">
+			<button type="submit">勤怠一覧画面に戻る</button>
+		</form>
+	</div>
+
+	<h1>勤怠報告</h1>
+	<p th:text="${text}">勤怠時間を入力してください</p>
+	<table border="2" width="100%">
+		<thead>
+			<tr class="headerlist">
+				<td>日付</td>
+				<td>出勤時間</td>
+				<td>退勤時間</td>
+				<td>除外時間</td>
+				<td>交通費</td>
+				<td>備考</td>
+				<td>登録</td>
+			</tr>
+		</thead>
+		<tbody class="contents">
+			<form th:action="@{/attendanceRegister}" th:object="${Success}" method="post">
+				<tr>
+					<td>
+						<input type="date" name="date" class="full-contensbox" required>
+					</td>
+					<td>
+						<input type="time" name="checkInTime" class="full-contensbox" required>
+					</td>
+					<td>
+						<input type="time" name="checkOutTime"  class="full-contensbox" required>
+					</td>
+					<td>
+						<input type="time" name="breakTime" min="00:00" max="02:00" class="full-contensbox" required>
+					</td>
+					<td>
+						<input type="number" min="0" max="9999999" name="transportation_expenses" class="full-contensbox">
+					</td>
+					<td>
+						<input type="text" name="remarks" maxlength="200" class="full-contensbox">
+					</td>
+					<td>
+						<button type="submit"  class="contentsbox">登録</button>
+					</td>
+				</tr>
+			</form>
+		</tbody>
+	</table>
+	<div th:if="${message}">
+		<p th:text="${message}" style="color: green;">勤怠情報が正常に登録されました。</p>
+	</div>
+	<div th:if="${error}">
+		<p th:text="${error}" style="color: red;">登録に失敗しました。再度お試しください。</p>
+	</div>
+	<div th:if="${errorTime}">
+		<p th:text="${errorTime}" style="color: red;">休憩時間の入力範囲を超えています。0時間から2時間まで</p>
+	</div>
+</body>
+
+</html>

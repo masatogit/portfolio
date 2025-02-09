@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link th:href="@{/css/success.css}" rel="stylesheet" type="text/css">
+	<title>ログイン成功！</title>
+</head>
+
+<body>
+	<div class="form-container">
+
+		<div th:object="${loginForm}">
+			<p>ログインID: <span th:text="${id}"></span></p>
+			<p>パスワード: <span th:text="${pass}"></span></p>
+		</div>
+		
+		<form name="loginCheck" th:action="@{/login}" th:object="${loginForm}" method="get">
+			<button type="submit">ログアウト</button>
+		</form>
+
+		<form th:action="@{/form}" th:object="${Success}" method="post">
+			<button type="submit">入力画面に進む</button>
+		</form>
+	</div>
+	<h1>勤怠一覧</h1>
+	<h2><span th:text="${Year} + '年 '"></span><span th:text="${Month} + '月'"></span></h2>
+	<p>実稼働時間: <span th:text="${totalWorkingHours}"></span>時間 <span th:text="${totalWorkingMinutes}"></span>分</p>
+	<p th:text="${message}" style="color: green;">勤怠情報が正常に更新されました。</p>
+	<p th:text="${error}" style="color: red;">更新に失敗しました。再度お試しください。</p>
+	<table border="2" width="100%">
+		<thead>
+			<tr class="headerlist">
+				<td>日付</td>
+				<td>出勤時間</td>
+				<td>退勤時間</td>
+				<td>除外時間</td>
+				<td>稼働時間</td>
+				<td>交通費</td>
+				<td>備考</td>
+				<td>編集</td>
+			</tr>
+		</thead>
+		<form th:action="@{/form}" th:object="${attendances}" method="post">
+			<tbody>
+				<tr th:each="attendance : ${attendances}">
+					<td th:text="${attendance.date}"></td>
+					<td th:text="${attendance.checkInTime}"></td>
+					<td th:text="${attendance.checkOutTime}"></td>
+					<td th:text="${attendance.breakTime}"></td>
+					<td th:text="${attendance.workingTime}"></td>
+					<td th:text="${attendance.transportation_expenses}"></td>
+					<td th:text="${attendance.remarks}"></td>
+					<td><a th:href="@{'/edit/' + ${attendance.date}}">編集</a></td>
+				</tr>
+			</tbody>
+		</form>
+	</table>
+</body>
+
+</html>

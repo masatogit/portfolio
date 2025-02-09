@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>新規登録</title>
+    <meta charset="utf-8" />
+    <link th:href="@{/css/register.css}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <h1 th:text="${title}">勤怠管理 - 新規登録</h1>
+    <h2>アカウント作成</h2>
+
+    <div class="form-container">
+        <form name="registerForm" method="post" th:action="@{/register}" th:object="${userForm}">
+            <div>
+                <label>ログインID:</label>
+                <input type="text" id="id" name="id" th:field="*{id}" required>
+                <p style="color: red;" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></p>
+            </div>
+            <div>
+                <label>パスワード:</label>
+                <input type="password" id="pass" name="pass" th:field="*{pass}" required>
+                <p style="color: red;" th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></p>
+            </div>
+            <div>
+                <input type="submit" value="登録">
+            </div>
+            <div th:if="${error}">
+                <p style="color: red;" th:text="${error}"></p>
+            </div>
+        </form>
+        <form method="get" th:action="@{/login}">
+            <input type="submit" value="ログイン画面へ戻る">
+        </form>
+    </div>
+</body>
+
+</html>

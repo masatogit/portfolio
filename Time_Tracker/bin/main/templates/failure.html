@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ログイン失敗！</title>
+</head>
+<body>
+    <form th:action="@{/login}" th:object="${loginForm}" method="get">
+        <div th:object="${loginForm}">
+                <input type="submit" value="ログイン画面へ戻る" onclick="login()"/>
+            </p>
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>ログイン画面</title>
+	<meta charset="utf-8" />
+	<link th:href="@{/css/login.css}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<h1 th:text="${title}">勤怠管理</h1>
+	<h2>ログイン画面</h2>
+
+
+	<div class="form-container">
+		<form name="loginCheck" method="post" th:action="@{/login}" th:object="${loginForm}">
+
+			<div>
+				<label>ログインID:</label>
+				<input type="text" id="id" name="id" th:field="*{id}" required>
+				<p style="color: red;" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></p>
+			</div>
+
+			<div>
+				<label>パスワード:</label>
+				<input type="password" id="pass" name="pass" th:field="*{pass}" required>
+				<p style="color: red;" th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></p>
+			</div>
+
+			<div th:if="${error}">
+				<p style="color: red;" th:text="${error}">error</p>
+			</div>
+
+			<div>
+				<input type="submit" value="ログイン">
+			</div>
+
+		</form>
+
+		<form method="get" th:action="@{/register}">
+			<div>
+				<input type="submit" value="新規登録">
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>
+
+<!--
+	<p th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></p>
+	<p th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></p>
+	-->
+	

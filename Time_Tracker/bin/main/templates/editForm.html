@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link th:href="@{/css/edit.css}" rel="stylesheet" type="text/css">
+	<title th:text=${title}>勤怠編集</title>
+</head>
+
+<body>
+
+	<h1>勤怠編集</h1>
+	<p>勤怠時間を編集してください</p>
+	<div th:object="${loginForm}">
+		<p>ログインID: <span th:text="${id}"></span></p>
+		<p>パスワード: <span th:text="${pass}"></span></p>
+	</div>
+	<table border="2" width="100%">
+		<thead>
+			<tr class="headerlist">
+				<td>日付</td>
+				<td>出勤時間</td>
+				<td>退勤時間</td>
+				<td>除外時間</td>
+				<td>交通費</td>
+				<td>備考</td>
+				<td>更新</td>
+			</tr>
+		</thead>
+		<tbody class="contents">
+			<form th:action="@{/updatesuccess}" th:object="${attendances}" method="post">
+				<input type="hidden" name="userId" value="${userId}">
+				<tr>
+					<td>
+						<input type="date" th:field="*{date}" class="full-contensbox" required />
+					</td>
+					<td>
+						<input type="time" th:field="*{checkInTime}" class="full-contensbox" required />
+					</td>
+					<td>
+						<input type="time" th:field="*{checkOutTime}" class="full-contensbox" required />
+					</td>
+					<td>
+						 <input type="time" th:field="*{breakTime}" min="00:00" max="02:00" class="full-contensbox" required />
+					</td>
+					<td >
+						<input type="number" th:field="*{transportation_expenses}" min="0" max="9999999" class="full-contensbox" />
+					</td>
+					<td>
+						 <input type="text" th:field="*{remarks}" maxlength="200" class="full-contensbox" />
+					</td>
+					<td>
+						<button type="submit" value="update" class="contentsbox">更新</button>
+					</td>
+				</tr>
+			</form>
+		</tbody>
+	</table>
+</body>
+
+</html>
